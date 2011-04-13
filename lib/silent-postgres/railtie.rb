@@ -1,6 +1,8 @@
 module SilentPostgres
   def self.init!
     ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(:include, SilentPostgres)
+  rescue NameError
+    Rails.logger.debug "The PostgresSQLAdapter is not in use.  Skipping silencer."
   end
 
   if defined?(Rails::Railtie)
